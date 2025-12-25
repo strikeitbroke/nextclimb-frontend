@@ -46,7 +46,7 @@ function App() {
                       <p>
                         <span className="font-normal">Distance:</span>
                         <span className="ml-1 text-slate-600">
-                          {segment.distance} km
+                          {segment.distance} miles
                         </span>
                       </p>
                       <p>
@@ -61,7 +61,7 @@ function App() {
                   {/* Right Side: Difficulty Badge */}
                   <div>
                     <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                      Hard
+                      {segment.difficulty}
                     </span>
                   </div>
                 </div>

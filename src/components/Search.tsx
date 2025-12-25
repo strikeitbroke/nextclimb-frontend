@@ -44,6 +44,8 @@ export default function Search({ onSearch }: SearchProps) {
           <input
             id="default-range"
             type="range"
+            min="0"
+            max="25"
             value={searchParams.radius}
             className="w-full h-2 bg-neutral-quaternary rounded-full appearance-none cursor-pointer"
             onChange={(e) =>
@@ -54,8 +56,8 @@ export default function Search({ onSearch }: SearchProps) {
             }
           />
         </div>
-        <div className="col-span-1 col-start-1">5 km</div>
-        <div className="col-span-1 col-end-7">100 km</div>
+        <div className="col-span-1 col-start-1">0 miles</div>
+        <div className="col-span-1 col-end-7">25 miles</div>
         <div className="col-span-6">
           <button
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
