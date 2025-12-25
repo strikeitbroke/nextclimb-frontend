@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
 import api from "./api/axios";
-
-interface SearchFilters {
-  location: string;
-  radius: number;
-}
+import Search from "../src/components/Search";
+import type { SearchParams } from "./models";
 
 function App() {
   const [data, setData] = useState([]);
-  const [searchParams, setSearchParams] = useState<SearchFilters>({
-    location: "",
-    radius: 25,
-  });
 
-  const handleSearch = async () => {
+  const handleSearch = async (searchParams: SearchParams) => {
     try {
       const response = await api.get("/segment/search", {
         params: searchParams,
@@ -31,61 +24,48 @@ function App() {
         <div className="col-span-1">
           <h1 className="text-3xl font-bold"> Find Your Next Climb</h1>
         </div>
-        <div className="col-span-1">
-          <div className="grid grid-cols-6 gap-4 border border-gray-300 p-4">
-            <div className="col-start-1 col-span-4">City Name</div>
-            <div className="col-start-1 col-end-7">
-              <input
-                className="border border-gray-300"
-                placeholder="type here..."
-                value={searchParams.location}
-                onChange={(e) =>
-                  setSearchParams({
-                    ...searchParams,
-                    location: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="col-span-6">{searchParams.location}</div>
-            <div className="col-span-2">Distance from city</div>
-            <div className="col-span-1 col-end-7">25 km</div>
-            <div className="col-span-6">
-              <label
-                htmlFor="default-range"
-                className="block mb-2.5 text-sm font-medium text-heading"
-              >
-                Default range: {searchParams.radius}
-              </label>
-              <input
-                id="default-range"
-                type="range"
-                value={searchParams.radius}
-                className="w-full h-2 bg-neutral-quaternary rounded-full appearance-none cursor-pointer"
-                onChange={(e) =>
-                  setSearchParams({
-                    ...searchParams,
-                    radius: parseInt(e.target.value),
-                  })
-                }
-              />
-            </div>
-            <div className="col-span-1 col-start-1">5 km</div>
-            <div className="col-span-1 col-end-7">100 km</div>
-            <div className="col-span-6">
-              <button
-                className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={handleSearch}
-              >
-                Search
-              </button>
-            </div>
-          </div>
+        <div className="col-span-1 search-bar">
+          <Search onSearch={handleSearch} />
         </div>
         <div className="col-span-1">
           <ul>
             {data.map((segment) => (
-              <li key={segment.id}> {segment.avg_grade} </li>
+              <>
+                {/* The Card Container */}
+                <div
+                  key={segment.id}
+                  className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 flex justify-between items-center"
+                >
+                  {/* Left Side: Content */}
+                  <div className="space-y-2">
+                    <h2 className="text-xl font-bold text-slate-900">
+                      {segment.name}
+                    </h2>
+
+                    <div className="flex gap-4 text-sm text-slate-500">
+                      <p>
+                        <span className="font-normal">Distance:</span>
+                        <span className="ml-1 text-slate-600">
+                          {segment.distance} km
+                        </span>
+                      </p>
+                      <p>
+                        <span className="font-normal">Avg. Grade:</span>
+                        <span className="ml-1 text-slate-600">
+                          {segment.avg_grade}%
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right Side: Difficulty Badge */}
+                  <div>
+                    <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                      Hard
+                    </span>
+                  </div>
+                </div>
+              </>
             ))}
           </ul>
         </div>
