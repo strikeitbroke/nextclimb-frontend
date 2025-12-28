@@ -18,7 +18,11 @@ export default function Search({ onSearch }: SearchProps) {
   return (
     <>
       <div className="grid grid-cols-9 gap-4 border border-gray-300 p-4 border border-gray-200 rounded-xl">
-        <div className="col-start-1 col-span-4">City Name</div>
+        <div className="col-start-1 col-span-4">
+          <label className="text-sm font-medium text-slate-900">
+            City Name
+          </label>
+        </div>
         <div className="col-start-1 col-end-10">
           <input
             className="border border-gray-300"
@@ -32,7 +36,11 @@ export default function Search({ onSearch }: SearchProps) {
             }
           />
         </div>
-        <div className="col-span-4">Distance from city</div>
+        <div className="col-span-4">
+          <label className="text-sm font-medium text-slate-900">
+            Distance from city
+          </label>
+        </div>
         <div className="col-span-1 col-end-10">25 km</div>
         <div className="col-span-9">
           <label
