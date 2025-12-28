@@ -40,12 +40,12 @@ export default function Card({ segment }: SegmentProp) {
             </span>
             <button
               data-slot="button"
-              class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive rounded-md gap-1.5 has-[&gt;svg]:px-2.5 bg-blue-600 hover:bg-blue-700 text-white h-9 px-3"
+              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive rounded-md gap-1.5 has-[&gt;svg]:px-2.5 bg-blue-600 hover:bg-blue-700 text-white h-9 px-3"
               onClick={() =>
                 redirectToGoogleMaps(segment.start_latlng, segment.end_latlng)
               }
             >
-              <span class="hidden sm:inline mr-1">View</span>
+              <span className="hidden sm:inline mr-1">View</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -56,7 +56,7 @@ export default function Card({ segment }: SegmentProp) {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="lucide lucide-arrow-right w-4 h-4"
+                className="lucide lucide-arrow-right w-4 h-4"
               >
                 <path d="M5 12h14"></path>
                 <path d="m12 5 7 7-7 7"></path>

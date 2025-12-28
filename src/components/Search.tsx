@@ -36,18 +36,12 @@ export default function Search({ onSearch }: SearchProps) {
             }
           />
         </div>
-        <div className="col-span-4">
-          <label className="text-sm font-medium text-slate-900">
-            Distance from city
-          </label>
-        </div>
-        <div className="col-span-1 col-end-10">25 km</div>
         <div className="col-span-9">
           <label
             htmlFor="default-range"
             className="block mb-2.5 text-sm font-medium text-heading"
           >
-            Default range: {searchParams.radius}
+            Search Range: {searchParams.radius} miles
           </label>
           <input
             id="default-range"

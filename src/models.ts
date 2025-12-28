@@ -9,6 +9,8 @@ interface Segment {
   distance: number;
   avg_grade: number;
   difficulty: string;
+  start_latlng: [number, number];
+  end_latlng: [number, number];
 }
 
 export type { SearchParams };
