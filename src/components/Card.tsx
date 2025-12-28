@@ -7,7 +7,7 @@ interface SegmentProp {
 export default function Card({ segment }: SegmentProp) {
   return (
     <>
-      <div className="grid grid-cols-9 gap-4 border border-gray-200 rounded-xl p-4 m-2">
+      <div className="grid grid-cols-9 gap-4 border border-gray-200 rounded-xl p-4 my-4">
         <div className="col-span-9 flex justify-between">
           <div className="card-detail flex flex-col">
             <div className="card-title">

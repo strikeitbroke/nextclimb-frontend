@@ -17,7 +17,7 @@ export default function Search({ onSearch }: SearchProps) {
 
   return (
     <>
-      <div className="grid grid-cols-9 gap-4 border border-gray-300 p-4">
+      <div className="grid grid-cols-9 gap-4 border border-gray-300 p-4 border border-gray-200 rounded-xl">
         <div className="col-start-1 col-span-4">City Name</div>
         <div className="col-start-1 col-end-10">
           <input
