@@ -25,10 +25,10 @@ function App() {
         <div className="col-span-12 justify-self-center">
           <h1 className=""> Find Your Next Climb</h1>
         </div>
-        <div className="col-span-12 col-start-3 col-end-10">
+        <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10">
           <Search onSearch={handleSearch} />
         </div>
-        <div className="col-span-12 col-start-3 col-end-10">
+        <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10">
           {Array.isArray(segments) &&
             segments.map((segment) => (
               <div key={segment.id}>
