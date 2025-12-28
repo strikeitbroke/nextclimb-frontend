@@ -17,9 +17,9 @@ export default function Search({ onSearch }: SearchProps) {
 
   return (
     <>
-      <div className="grid grid-cols-6 gap-4 border border-gray-300 p-4">
+      <div className="grid grid-cols-9 gap-4 border border-gray-300 p-4">
         <div className="col-start-1 col-span-4">City Name</div>
-        <div className="col-start-1 col-end-7">
+        <div className="col-start-1 col-end-10">
           <input
             className="border border-gray-300"
             placeholder="type here..."
@@ -32,9 +32,9 @@ export default function Search({ onSearch }: SearchProps) {
             }
           />
         </div>
-        <div className="col-span-2">Distance from city</div>
-        <div className="col-span-1 col-end-7">25 km</div>
-        <div className="col-span-6">
+        <div className="col-span-4">Distance from city</div>
+        <div className="col-span-1 col-end-10">25 km</div>
+        <div className="col-span-9">
           <label
             htmlFor="default-range"
             className="block mb-2.5 text-sm font-medium text-heading"
@@ -57,8 +57,8 @@ export default function Search({ onSearch }: SearchProps) {
           />
         </div>
         <div className="col-span-1 col-start-1">0 miles</div>
-        <div className="col-span-1 col-end-7">25 miles</div>
-        <div className="col-span-6">
+        <div className="col-span-1 col-end-10">25 miles</div>
+        <div className="col-span-9">
           <button
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={handleSubmit}
