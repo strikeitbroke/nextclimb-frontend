@@ -5,6 +5,14 @@ interface SegmentProp {
 }
 
 export default function Card({ segment }: SegmentProp) {
+  const difficultyColors: Record<string, string> = {
+    Easy: "bg-green-600",
+    Intermediate: "bg-orange-500",
+    Hard: "bg-red-600",
+  };
+
+  // 2. Get the color based on the segment difficulty (fallback to gray if not found)
+  const cardDiffColor = difficultyColors[segment.difficulty] || "bg-gray-500";
   return (
     <>
       <div className="grid grid-cols-9 gap-4 border border-gray-200 rounded-xl p-4 my-4">
@@ -18,8 +26,12 @@ export default function Card({ segment }: SegmentProp) {
               <p>Avg. Grade: {segment.avg_grade}% </p>
             </div>
           </div>
-          <div className="card-difficulty">
-            <p>{segment.difficulty}</p>
+          <div className="">
+            <span
+              className={`${cardDiffColor} text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider`}
+            >
+              {segment.difficulty}
+            </span>
           </div>
         </div>
       </div>
