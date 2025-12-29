@@ -15,6 +15,7 @@ function App() {
       const response = await api.get("/segment/search", {
         params: searchParams,
       });
+      // console.log("----> ", response.data);
       setSegments(response.data);
     } catch (error) {
       console.error("error: ", error);
