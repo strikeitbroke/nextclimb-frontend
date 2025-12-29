@@ -58,10 +58,10 @@ export default function Card({ segment }: SegmentProp) {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-map w-4 h-4"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-map w-4 h-4"
               >
                 <path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"></path>
                 <path d="M15 5.764v15"></path>
@@ -70,7 +70,7 @@ export default function Card({ segment }: SegmentProp) {
             </button>
             <button
               data-slot="button"
-              class="border-none rounded p-2.5 bg-orange-500 text-white"
+              className="border-none rounded p-2.5 bg-orange-500 text-white"
               title="Find on Strava"
               onClick={() => redirectToStravaSegment(segment.id)}
             >
@@ -81,10 +81,10 @@ export default function Card({ segment }: SegmentProp) {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-external-link w-4 h-4"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-external-link w-4 h-4"
               >
                 <path d="M15 3h6v6"></path>
                 <path d="M10 14 21 3"></path>
