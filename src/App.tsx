@@ -16,7 +16,7 @@ function App() {
         params: searchParams,
       });
       // console.log("----> ", response.data);
-      setSegments(response.data);
+      setSegments(response.data["segments"]);
     } catch (error) {
       console.error("error: ", error);
     } finally {
