@@ -3,9 +3,10 @@ import type { SearchParams } from "../models";
 
 interface SearchProps {
   onSearch: (filters: SearchParams) => void;
+  isLoading: boolean;
 }
 
-export default function Search({ onSearch }: SearchProps) {
+export default function Search({ onSearch, isLoading }: SearchProps) {
   const [searchParams, setSearchParams] = useState<SearchParams>({
     location: "",
     radius: 25,
@@ -62,7 +63,14 @@ export default function Search({ onSearch }: SearchProps) {
         <div className="col-span-1 col-end-10">25 miles</div>
         <div className="col-span-9">
           <button
-            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            disabled={isLoading}
+            className={`w-full text-white font-bold py-2 px-4 rounded 
+              ${
+                isLoading
+                  ? "bg-blue-300 cursor-not-allowed"
+                  : "bg-blue-500 hover:bg-blue-700"
+              }
+            `}
             onClick={handleSubmit}
           >
             Search

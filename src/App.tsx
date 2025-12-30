@@ -31,7 +31,7 @@ function App() {
           <h1 className=""> Find Your Next Climb</h1>
         </div>
         <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10">
-          <Search onSearch={handleSearch} />
+          <Search onSearch={handleSearch} isLoading={isLoading} />
         </div>
         <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10">
           {isLoading ? (
