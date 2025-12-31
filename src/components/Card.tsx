@@ -6,9 +6,10 @@ interface SegmentProp {
 
 export default function Card({ segment }: SegmentProp) {
   const difficultyColors: Record<string, string> = {
-    Easy: "bg-green-600",
-    Intermediate: "bg-orange-500",
-    Hard: "bg-red-600",
+    Easy: "bg-sky-500",
+    Moderate: "bg-yellow-500",
+    Hard: "bg-orange-500",
+    Brutal: "bg-red-600",
   };
   const redirectToGoogleMaps = (
     start: [number, number],
