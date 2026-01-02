@@ -18,16 +18,14 @@ export default function Search({ onSearch, isLoading }: SearchProps) {
 
   return (
     <>
-      <div className="grid grid-cols-9 gap-4 border border-gray-300 p-4 border border-gray-200 rounded-xl">
-        <div className="col-start-1 col-span-4">
-          <label className="text-sm font-medium text-slate-900">
+      <div className="grid grid-cols-9 gap-4 p-4">
+        <div className="col-start-1 col-end-10 flex flex-col">
+          <label className="text-sm font-medium text-slate-900 mb-2">
             City Name
           </label>
-        </div>
-        <div className="col-start-1 col-end-10">
           <input
-            className="border border-gray-300"
-            placeholder="type here..."
+            className="border border-gray-300 rounded-md px-3 py-2"
+            placeholder="San Francisco, CA"
             value={searchParams.location}
             onChange={(e) =>
               setSearchParams({
@@ -42,7 +40,7 @@ export default function Search({ onSearch, isLoading }: SearchProps) {
             htmlFor="default-range"
             className="block mb-2.5 text-sm font-medium text-heading"
           >
-            Search Range: {searchParams.radius} miles
+            Search Within: {searchParams.radius} miles
           </label>
           <input
             id="default-range"
@@ -59,8 +57,12 @@ export default function Search({ onSearch, isLoading }: SearchProps) {
             }
           />
         </div>
-        <div className="col-span-1 col-start-1">0 miles</div>
-        <div className="col-span-1 col-end-10">25 miles</div>
+        <div className="col-span-2 col-start-1 text-xs text-gray-500">
+          0 miles
+        </div>
+        <div className="col-span-2 col-end-10 text-xs text-gray-500 text-right">
+          25 miles
+        </div>
         <div className="col-span-9">
           <button
             disabled={isLoading}
