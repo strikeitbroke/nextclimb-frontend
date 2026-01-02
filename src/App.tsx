@@ -4,6 +4,7 @@ import Search from "./components/Search";
 import Card from "./components/Card";
 import LoadingIcon from "./components/LoadingIcon";
 import type { SearchParams, Segment } from "./models";
+import MenuBar from "./components/MenuBar";
 
 function App() {
   const [segments, setSegments] = useState<Segment[]>([]);
@@ -27,9 +28,11 @@ function App() {
   return (
     <>
       <div className="grid grid-cols-11 gap-4">
-        <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10 border border-gray-300 rounded-xl mt-5">
+        <div className="col-span-12">
+          <MenuBar />
+        </div>
+        <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10 border border-gray-300 rounded-xl">
           <h1 className="text-center text-3xl font-bold mt-3 mb-6">
-            {" "}
             Find Your Next Climb
           </h1>
           <Search onSearch={handleSearch} isLoading={isLoading} />
