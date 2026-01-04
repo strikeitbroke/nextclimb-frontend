@@ -40,13 +40,17 @@ function App() {
         <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10">
           {isLoading ? (
             <LoadingIcon />
-          ) : (
-            Array.isArray(segments) &&
+          ) : Array.isArray(segments) && segments.length > 0 ? (
             segments.map((segment) => (
               <div key={segment.id}>
                 <Card segment={segment} />
               </div>
             ))
+          ) : (
+            <div className="text-center">
+              {" "}
+              No climbs found here, try increase your search radius.{" "}
+            </div>
           )}
         </div>
       </div>
