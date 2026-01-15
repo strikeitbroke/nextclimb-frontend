@@ -1,4 +1,11 @@
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import SignInModal from "./SignInModal";
+
 export default function MenuBar() {
+  const { user, logout } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
       <header className="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
@@ -25,16 +32,34 @@ export default function MenuBar() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <button
-                data-slot="button"
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border shadow-xs hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[&gt;svg]:px-3 bg-white/10 hover:bg-white/20 border-white/20"
-              >
-                Sign In
-              </button>
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <img
+                    src={user.picture}
+                    alt={user.name}
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <span className="text-sm hidden sm:inline">{user.name}</span>
+                  <button
+                    onClick={logout}
+                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all border shadow-xs h-9 px-4 py-2 bg-white/10 hover:bg-white/20 border-white/20"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all border shadow-xs h-9 px-4 py-2 bg-white/10 hover:bg-white/20 border-white/20"
+                >
+                  Sign In
+                </button>
+              )}
             </div>
           </div>
         </div>
       </header>
+      <SignInModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 }
