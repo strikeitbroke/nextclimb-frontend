@@ -1,8 +1,8 @@
 export default function MenuBar() {
   return (
     <>
-      <header className="bg-gray-900 text-white p-4">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
+      <header className="grid bg-gray-900 text-white p-4">
+        <div className="col-span-12 md:col-start-3 max-w-4xl flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-white/10 rounded flex items-center justify-center">
               <svg
