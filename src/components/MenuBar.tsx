@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import SignInModal from "./SignInModal";
+import UserDropdown from "./UserDropdown";
 
 export default function MenuBar() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -33,20 +34,7 @@ export default function MenuBar() {
             </div>
             <div className="flex items-center gap-3">
               {user ? (
-                <div className="flex items-center gap-3">
-                  <img
-                    src={user.picture}
-                    alt={user.name}
-                    className="w-8 h-8 rounded-full"
-                  />
-                  <span className="text-sm hidden sm:inline">{user.name}</span>
-                  <button
-                    onClick={logout}
-                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all border shadow-xs h-9 px-4 py-2 bg-white/10 hover:bg-white/20 border-white/20"
-                  >
-                    Sign Out
-                  </button>
-                </div>
+                <UserDropdown user={user} />
               ) : (
                 <button
                   onClick={() => setIsModalOpen(true)}
