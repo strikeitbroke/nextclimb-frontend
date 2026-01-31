@@ -5,6 +5,7 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
+import api from "../api/axios";
 
 export interface User {
   email: string;
@@ -14,36 +15,57 @@ export interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (user: User) => void;
+  token: string | null;
+  login: (idToken: string) => Promise<void>;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const STORAGE_KEY = "nextclimb_user";
+const USER_STORAGE_KEY = "nextclimb_user";
+const TOKEN_STORAGE_KEY = "nextclimb_token";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem(STORAGE_KEY);
+    const storedUser = localStorage.getItem(USER_STORAGE_KEY);
+    const storedToken = localStorage.getItem(TOKEN_STORAGE_KEY);
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+    if (storedToken) {
+      setToken(storedToken);
+    }
   }, []);
 
-  const login = (userData: User) => {
-    setUser(userData);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+  const login = async (idToken: string) => {
+    try {
+      const response = await api.post("/auth/google", {
+        token: idToken,
+      });
+      const { token: jwt, user: userData } = response.data;
+
+      setToken(jwt);
+      setUser(userData);
+      localStorage.setItem(TOKEN_STORAGE_KEY, jwt);
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(userData));
+    } catch (error) {
+      console.error("Login error: ", error);
+      throw error;
+    }
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem(STORAGE_KEY);
+    setToken(null);
+    localStorage.removeItem(USER_STORAGE_KEY);
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
