@@ -7,6 +7,7 @@ import { AuthProvider } from "./context/AuthContext.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home.tsx";
 import Connections from "./pages/Connections.tsx";
+import StravaCallback from "./pages/StravaCallback.tsx";
 
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 const router = createBrowserRouter([
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
   {
     path: "/connections",
     element: <Connections />,
+    errorElement: <div>404 Not Found</div>,
+  },
+  {
+    path: "/connections/strava/callback",
+    element: <StravaCallback />,
     errorElement: <div>404 Not Found</div>,
   },
 ]);

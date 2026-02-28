@@ -1,8 +1,30 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios";
+import { useAuth } from "../context/AuthContext";
 import MenuBar from "../components/MenuBar";
 
 function Connections() {
   const navigate = useNavigate();
+  const { token } = useAuth();
+  const [stravaConnected, setStravaConnected] = useState(false);
+
+  useEffect(() => {
+    if (!token) return;
+    api
+      .get("/auth/strava/status")
+      .then((res) => setStravaConnected(res.data.connected))
+      .catch(() => {});
+  }, [token]);
+
+  const handleStravaConnect = () => {
+    const clientId = import.meta.env.VITE_STRAVA_CLIENT_ID;
+    const redirectUri = encodeURIComponent(
+      "http://localhost:5173/connections/strava/callback",
+    );
+    const scope = "read,activity:read_all";
+    window.location.href = `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
+  };
   return (
     <>
       <div className="col-span-12">
@@ -54,12 +76,22 @@ function Connections() {
               </div>
             </div>
             <div>
-              <button
-                data-slot="button"
-                className="inline-flex items-center justify-center whitespace-nowrap text-sm text-white bg-gray-800 rounded-sm px-3 py-1"
-              >
-                Connect
-              </button>
+              {stravaConnected ? (
+                <span className="inline-flex items-center gap-1.5 text-sm text-green-600 font-medium">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  Connected
+                </span>
+              ) : (
+                <button
+                  data-slot="button"
+                  className="inline-flex items-center justify-center whitespace-nowrap text-sm text-white bg-gray-800 rounded-sm px-3 py-1"
+                  onClick={handleStravaConnect}
+                >
+                  Connect
+                </button>
+              )}
             </div>
           </div>
         </div>
