@@ -23,7 +23,6 @@ export default function Card({ segment }: SegmentProp) {
     const url = `https://www.strava.com/segments/${segmentId}`;
     window.open(url, "_blank");
   };
-  // 2. Get the color based on the segment difficulty (fallback to gray if not found)
   const cardDiffColor = difficultyColors[segment.difficulty] || "bg-gray-500";
   return (
     <>

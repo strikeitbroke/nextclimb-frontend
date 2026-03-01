@@ -10,24 +10,37 @@ function App() {
   const [segments, setSegments] = useState<Segment[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [lastSearch, setLastSearch] = useState<SearchParams | null>(null);
+  const [vote, setVote] = useState<boolean | null>(null);
 
   const handleSearch = async (searchParams: SearchParams) => {
-    setIsLoading(true); // Start loading
+    setIsLoading(true);
+    setVote(null);
 
     if (searchParams.location.trim().length > 0) {
       setHasSearched(true);
+      setLastSearch(searchParams);
     }
     try {
       const response = await api.get("/segment/search", {
         params: searchParams,
       });
-      // console.log("----> ", response.data);
       setSegments(response.data["segments"]);
     } catch (error) {
       console.error("error: ", error);
     } finally {
-      setIsLoading(false); //Stop loading regardless of success/fail
+      setIsLoading(false);
     }
+  };
+
+  const handleVote = async (value: boolean) => {
+    if (vote === value || !lastSearch) return;
+    await api.post("/segment/feedback", {
+      location: lastSearch.location,
+      radius: lastSearch.radius,
+      vote: value,
+    });
+    setVote(value);
   };
 
   const renderContent = () => {
@@ -78,6 +91,31 @@ function App() {
           </h1>
           <Search onSearch={handleSearch} isLoading={isLoading} />
         </div>
+        {hasSearched && !isLoading && (
+          <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10 flex items-center justify-between border border-gray-200 rounded-xl px-4 py-3">
+            <p className="text-sm text-gray-600">How were your search results?</p>
+            <div className="flex gap-2">
+              <button
+                title="Good results"
+                className={`rounded p-2 border ${vote === true ? "bg-green-500 border-green-500 text-white" : "border-gray-400 text-gray-600"}`}
+                onClick={() => handleVote(true)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/>
+                </svg>
+              </button>
+              <button
+                title="Bad results"
+                className={`rounded p-2 border ${vote === false ? "bg-red-500 border-red-500 text-white" : "border-gray-400 text-gray-600"}`}
+                onClick={() => handleVote(false)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
         <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10">
           {renderContent()}
         </div>
