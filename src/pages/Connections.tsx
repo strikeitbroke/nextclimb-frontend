@@ -8,6 +8,7 @@ function Connections() {
   const navigate = useNavigate();
   const { token } = useAuth();
   const [stravaConnected, setStravaConnected] = useState(false);
+  const [resyncing, setResyncing] = useState(false);
 
   useEffect(() => {
     if (!token) return;
@@ -16,6 +17,20 @@ function Connections() {
       .then((res) => setStravaConnected(res.data.connected))
       .catch(() => {});
   }, [token]);
+
+  const handleStravaResync = async () => {
+    setResyncing(true);
+    try {
+      await api.post("/auth/strava/resync");
+    } catch (err: any) {
+      if (err?.response?.status === 401) {
+        // Token revoked on Strava's side — fall back to full OAuth
+        handleStravaConnect();
+      }
+    } finally {
+      setResyncing(false);
+    }
+  };
 
   const handleStravaConnect = () => {
     const clientId = import.meta.env.VITE_STRAVA_CLIENT_ID;
@@ -77,12 +92,22 @@ function Connections() {
             </div>
             <div>
               {stravaConnected ? (
-                <span className="inline-flex items-center gap-1.5 text-sm text-green-600 font-medium">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 6 9 17l-5-5" />
-                  </svg>
-                  Connected
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 text-sm text-green-600 font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    Connected
+                  </span>
+                  <button
+                    data-slot="button"
+                    className="inline-flex items-center justify-center whitespace-nowrap text-sm text-gray-600 border border-gray-300 rounded-sm px-3 py-1 hover:bg-gray-50 disabled:opacity-50"
+                    onClick={handleStravaResync}
+                    disabled={resyncing}
+                  >
+                    {resyncing ? "Syncing..." : "Re-sync"}
+                  </button>
+                </div>
               ) : (
                 <button
                   data-slot="button"
