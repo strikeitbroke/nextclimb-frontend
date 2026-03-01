@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "./api/axios";
 import Search from "./components/Search";
 import Card from "./components/Card";
+import FeedbackModal from "./components/FeedbackModal";
 import LoadingIcon from "./components/LoadingIcon";
 import type { SearchParams, Segment } from "./models";
 import MenuBar from "./components/MenuBar";
@@ -12,6 +13,7 @@ function App() {
   const [hasSearched, setHasSearched] = useState(false);
   const [lastSearch, setLastSearch] = useState<SearchParams | null>(null);
   const [vote, setVote] = useState<boolean | null>(null);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   const handleSearch = async (searchParams: SearchParams) => {
     setIsLoading(true);
@@ -113,8 +115,23 @@ function App() {
                   <path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/>
                 </svg>
               </button>
+              <button
+                title="Leave feedback"
+                className="rounded p-2 border border-gray-400 text-gray-600"
+                onClick={() => setShowFeedbackModal(true)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+              </button>
             </div>
           </div>
+        )}
+        {showFeedbackModal && lastSearch && (
+          <FeedbackModal
+            searchParams={lastSearch}
+            onClose={() => setShowFeedbackModal(false)}
+          />
         )}
         <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10">
           {renderContent()}
