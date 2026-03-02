@@ -3,6 +3,7 @@ import api from "./api/axios";
 import Search from "./components/Search";
 import Card from "./components/Card";
 import FeedbackModal from "./components/FeedbackModal";
+import Footer from "./components/Footer";
 import LoadingIcon from "./components/LoadingIcon";
 import type { SearchParams, Segment } from "./models";
 import MenuBar from "./components/MenuBar";
@@ -136,6 +137,7 @@ function App() {
         <div className="col-span-12 mx-4 md:col-start-3 md:col-end-10">
           {renderContent()}
         </div>
+        <Footer />
       </div>
     </>
   );
